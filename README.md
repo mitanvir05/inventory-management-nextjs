@@ -5,6 +5,20 @@ The application supports authentication, dashboards, product management, and is 
 
 ---
 
+## 🌐 Live Demo
+
+🚀 **Live Site**: https://inventory-management-nextjs-app.vercel.app  
+
+### 🔑 Demo Login Credentials
+> Use the following credentials to explore the application:
+
+- **Email**: `user@gmail.com`
+- **Password**: `12345678`
+
+⚠️ *Demo account only — do not use real credentials.*
+
+---
+
 ## 🚀 Features
 
 - 🔐 User Authentication (Stack Auth)
@@ -23,10 +37,26 @@ The application supports authentication, dashboards, product management, and is 
 - **Framework**: Next.js 16 (App Router)
 - **Frontend**: React 19, Tailwind CSS
 - **Backend**: Next.js Server Actions / API Routes
-- **Database**: PostgreSQL (Neon / Supabase / etc.)
+- **Database**: PostgreSQL (Neon)
 - **ORM**: Prisma
 - **Authentication**: Stack Auth
 - **Deployment**: Vercel
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Home Page
+![Home Page](./screenshots/home1.png)
+
+### 📊 Dashboard
+![Dashboard](./screenshots/dashboard.png)
+
+### 📦 Inventory
+![Inventory](./screenshots/inventory.png)
+
+### ➕ Add Product
+![Add Product](./screenshots/addproduct.png)
 
 ---
 
@@ -55,23 +85,8 @@ The application supports authentication, dashboards, product management, and is 
 │   ├── schema.prisma
 │   └── seed.ts
 ├── public/
+├── screenshots/
 ├── stack/
 ├── .env.example
 ├── package.json
 └── README.md
-
-
-
-## 📸 Screenshots
-
-### 🏠 Home Page
-![Home Page](https://inventory-management-nextjs-app.vercel.app/assets/home.png)
-
-### 📊 Dashboard
-![Dashboard](https://inventory-management-nextjs-app.vercel.app/assets/dashboard.png)
-
-### 📦 Inventory
-![Inventory](https://inventory-management-nextjs-app.vercel.app/assets/inventory.png)
-
-### ➕ Add Product
-![Add Product](https://inventory-management-nextjs-app.vercel.app/assets/addproduct.png)
