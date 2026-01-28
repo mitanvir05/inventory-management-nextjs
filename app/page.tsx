@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar"; // 👈 Ensure you have the Navbar component
-import { getCurrentUser } from "@/lib/auth"; // 👈 Import auth
+import Navbar from "@/components/navbar";
+import { getCurrentUser } from "@/lib/auth"; 
 import { ArrowRight, Box, CheckCircle2, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
