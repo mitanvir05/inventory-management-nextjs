@@ -4,10 +4,10 @@ import { PrismaClient, Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const demoUserId = "8bcf08f2-1a9e-4ee2-990c-b7bc7e532cfb";
+  const demoUserId = "07186418-1e51-4c4e-87ac-1ccf04ef13b9";
 
   await prisma.product.createMany({
-    data: Array.from({ length: 25 }).map((_, i) => ({
+    data: Array.from({ length: 50 }).map((_, i) => ({
       userId: demoUserId,
       name: `Product ${i + 1}`,
       price: new Prisma.Decimal((Math.random() * 90 + 10).toFixed(2)),

@@ -1,10 +1,9 @@
 import Sidebar from "@/components/sidebar";
-import { deleteProduct } from "@/lib/actions/products";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Search, Trash2, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Search, AlertCircle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-
+import DeleteProduct from "@/components/delete-product";
 const ITEMS_PER_PAGE = 10;
 
 export default async function InventoryPage({
@@ -20,7 +19,6 @@ export default async function InventoryPage({
   const currentPage = Number(params.page) || 1;
   const skip = (currentPage - 1) * ITEMS_PER_PAGE;
 
-  // Fetch Products with Pagination
   const [products, totalCount] = await Promise.all([
     prisma.product.findMany({
       where: { userId, name: { contains: q, mode: "insensitive" } },
@@ -38,6 +36,7 @@ export default async function InventoryPage({
   return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar currentPath="/inventory" />
+
       <main className="ml-0 md:ml-64 p-4 pt-20 md:p-8 md:pt-8 transition-all">
         {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -159,21 +158,7 @@ export default async function InventoryPage({
                           </td>
                           <td className="px-6 py-4 text-right">
                             <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <form
-                                action={async (formData: FormData) => {
-                                  "use server";
-                                  await deleteProduct(formData);
-                                }}
-                              >
-                                <input
-                                  type="hidden"
-                                  name="id"
-                                  value={product.id}
-                                />
-                                <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              </form>
+                              <DeleteProduct id={product.id} />
                             </div>
                           </td>
                         </tr>
