@@ -12,7 +12,7 @@ export default async function InventoryPage({
   searchParams: Promise<{ q?: string; page?: string }>;
 }) {
   const user = await getCurrentUser();
-  const userId = user.id;
+  const userId = user?.id;
 
   const params = await searchParams;
   const q = (params.q ?? "").trim();

@@ -24,7 +24,6 @@ export default function ProductChart({ data }: { data: ChartData[] }) {
           data={data}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         >
-          {/* Gradient */}
           <defs>
             <linearGradient id="productsGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.6} />
@@ -50,7 +49,7 @@ export default function ProductChart({ data }: { data: ChartData[] }) {
             allowDecimals={false}
           />
 
-          {/* Tooltip */}
+          {/* Tooltip  */}
           <Tooltip
             cursor={{ stroke: "#8b5cf6", strokeDasharray: "4 4" }}
             contentStyle={{
@@ -60,10 +59,9 @@ export default function ProductChart({ data }: { data: ChartData[] }) {
               fontSize: "12px",
             }}
             labelStyle={{ fontWeight: 600 }}
-            formatter={(value: number) => [`${value}`, "Products"]}
+            formatter={(value: any) => [`${value}`, "Products"]}
           />
 
-          {/* Legend */}
           <Legend
             verticalAlign="top"
             height={24}

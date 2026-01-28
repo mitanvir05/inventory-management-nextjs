@@ -12,7 +12,7 @@ import {
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
-  const userId = user.id;
+  const userId = user?.id;
 
   // --- Data Fetching
   const totalProducts = await prisma.product.count({ where: { userId } });
