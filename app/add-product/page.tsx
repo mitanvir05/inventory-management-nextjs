@@ -7,14 +7,16 @@ export default async function AddProductPage() {
   const user = await getCurrentUser();
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50">
       <Sidebar currentPath="/add-product" />
 
-      <main className="flex-1 ml-64 p-8">
+      <main className="ml-0 md:ml-64 p-4 pt-20 md:p-8 md:pt-8 transition-all">
         {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Add Product</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+              Add Product
+            </h1>
             <p className="text-sm text-gray-500 mt-1">
               Add a new product to your inventory.
             </p>
@@ -62,7 +64,7 @@ export default async function AddProductPage() {
                   />
                 </div>
 
-                {/* Price & Quantity Grid */}
+                {/* Price & Quantity Grid (Stacks on mobile, 2 cols on desktop) */}
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <div>
                     <label

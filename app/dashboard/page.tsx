@@ -14,7 +14,7 @@ export default async function DashboardPage() {
   const user = await getCurrentUser();
   const userId = user.id;
 
-  // --- Data Fetching ---
+  // --- Data Fetching
   const totalProducts = await prisma.product.count({ where: { userId } });
 
   const allProducts = await prisma.product.findMany({
@@ -28,22 +28,18 @@ export default async function DashboardPage() {
   );
 
   const inStockCount = allProducts.filter((p) => Number(p.quantity) > 5).length;
-
   const lowStockCount = allProducts.filter(
     (p) => Number(p.quantity) <= 5 && Number(p.quantity) >= 1,
   ).length;
-
   const outOfStockCount = allProducts.filter(
     (p) => Number(p.quantity) === 0,
   ).length;
 
   const inStockPercentage =
     totalProducts > 0 ? Math.round((inStockCount / totalProducts) * 100) : 0;
-
   const lowStockPercentage =
     totalProducts > 0 ? Math.round((lowStockCount / totalProducts) * 100) : 0;
 
-  // Fetch products specifically for Low Stock card comparison
   const productsForLowStock = await prisma.product.findMany({
     where: { userId },
     select: { quantity: true, lowStockAt: true },
@@ -65,12 +61,10 @@ export default async function DashboardPage() {
     const weekStart = new Date(now);
     weekStart.setDate(now.getDate() - now.getDay() - i * 7);
     weekStart.setHours(0, 0, 0, 0);
-
     const weekEnd = new Date(weekStart);
     weekEnd.setDate(weekStart.getDate() + 6);
     weekEnd.setHours(23, 59, 59, 999);
     const weekLabel = `${weekStart.getMonth() + 1}/${weekStart.getDate()}`;
-
     const weekProducts = allProducts.filter((product) => {
       const productDate = new Date(product.createdAt);
       return productDate >= weekStart && productDate <= weekEnd;
@@ -84,37 +78,36 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar currentPath="/dashboard" />
-      <main className="ml-64 p-8">
+
+      <main className="ml-0 md:ml-64 p-4 pt-20 md:p-8 md:pt-8 transition-all">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-sm text-gray-600">
-                Welcome to your inventory dashboard.
-              </p>
-            </div>
-          </div>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            Dashboard
+          </h1>
+          <p className="text-sm text-gray-600">
+            Welcome to your inventory dashboard.
+          </p>
         </div>
 
-        {/* Top Section: Metrics & Chart */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Key Metrics Cards */}
+        {/* Top Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Key Metrics */}
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
             <h2 className="text-lg font-semibold mb-6 text-gray-900">
               Key Metrics
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Metric 1: Total Products */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {/* Card 1 */}
               <div className="flex flex-col items-center p-4 bg-indigo-50/50 rounded-xl border border-indigo-100">
                 <div className="p-2 bg-indigo-100 rounded-lg text-indigo-600 mb-2">
                   <Package className="w-5 h-5" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-2xl md:text-3xl font-bold text-gray-900">
                   {totalProducts}
                 </div>
-                <div className="text-sm font-medium text-gray-500">
+                <div className="text-xs md:text-sm font-medium text-gray-500">
                   Total Products
                 </div>
                 <div className="flex items-center mt-2 px-2 py-1 bg-green-100 rounded-full">
@@ -125,15 +118,15 @@ export default async function DashboardPage() {
                 </div>
               </div>
 
-              {/* Metric 2: Total Value */}
+              {/* Card 2 */}
               <div className="flex flex-col items-center p-4 bg-green-50/50 rounded-xl border border-green-100">
                 <div className="p-2 bg-green-100 rounded-lg text-green-600 mb-2">
                   <DollarSign className="w-5 h-5" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-2xl md:text-3xl font-bold text-gray-900 text-center">
                   ${Number(totalValue).toLocaleString()}
                 </div>
-                <div className="text-sm font-medium text-gray-500">
+                <div className="text-xs md:text-sm font-medium text-gray-500">
                   Total Value
                 </div>
                 <div className="flex items-center mt-2 px-2 py-1 bg-green-100 rounded-full">
@@ -142,15 +135,15 @@ export default async function DashboardPage() {
                 </div>
               </div>
 
-              {/* Metric 3: Low Stock */}
+              {/* Card 3 */}
               <div className="flex flex-col items-center p-4 bg-orange-50/50 rounded-xl border border-orange-100">
                 <div className="p-2 bg-orange-100 rounded-lg text-orange-600 mb-2">
                   <AlertTriangle className="w-5 h-5" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-2xl md:text-3xl font-bold text-gray-900">
                   {lowStock}
                 </div>
-                <div className="text-sm font-medium text-gray-500">
+                <div className="text-xs md:text-sm font-medium text-gray-500">
                   Low Stock
                 </div>
                 <div className="flex items-center mt-2 px-2 py-1 bg-red-100 rounded-full">
@@ -165,26 +158,22 @@ export default async function DashboardPage() {
 
           {/* Chart Section */}
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-gray-900">
-                New Products Per Week
-              </h2>
-            </div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-6">
+              New Products Per Week
+            </h2>
             <div className="h-48">
               <ProductChart data={weeklyProductsData} />
             </div>
           </div>
         </div>
 
-        {/* Bottom Section: Stock Levels & Efficiency */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Stock Level List */}
+        {/* Bottom Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Recent Stock List */}
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-gray-900">
-                Recent Stock Level
-              </h2>
-            </div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-6">
+              Recent Stock Level
+            </h2>
             <div className="space-y-3">
               {recent.map((product, key) => {
                 const stockLevel =
@@ -193,7 +182,6 @@ export default async function DashboardPage() {
                     : product.quantity <= (product.lowStockAt || 5)
                       ? 1
                       : 2;
-
                 const bgcolors = [
                   "bg-red-600",
                   "bg-yellow-600",
@@ -204,6 +192,7 @@ export default async function DashboardPage() {
                   "text-yellow-600",
                   "text-green-600",
                 ];
+
                 return (
                   <div
                     key={key}
@@ -213,7 +202,7 @@ export default async function DashboardPage() {
                       <div
                         className={`w-3 h-3 rounded-full ${bgcolors[stockLevel]}`}
                       />
-                      <span className="text-sm font-medium text-gray-900">
+                      <span className="text-sm font-medium text-gray-900 truncate max-w-[120px] md:max-w-xs">
                         {product?.name}
                       </span>
                     </div>
@@ -228,28 +217,23 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          {/* Efficiency Donut Chart */}
+          {/* Efficiency Chart */}
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-gray-900">
-                Efficiency
-              </h2>
-            </div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-6">
+              Efficiency
+            </h2>
             <div className="flex items-center justify-center">
               <div className="relative w-48 h-48">
-                {/* Background Ring */}
-                <div className="absolute inset-0 rounded-full border-8 border-gray-100"></div>
-
-                {/* Dynamic Value Ring */}
+                <div className="absolute inset-0 rounded-full border-17 border-gray-100"></div>
                 <div
-                  className="absolute inset-0 rounded-full border-8 border-purple-600"
+                  className="absolute inset-0 rounded-full"
                   style={{
-                    clipPath:
-                      "polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%)",
+                    background: `conic-gradient(#7c3aed ${inStockPercentage}%, transparent ${inStockPercentage}%)`,
+                    maskImage: "radial-gradient(transparent 58%, black 60%)",
+                    WebkitMaskImage:
+                      "radial-gradient(transparent 58%, black 60%)",
                   }}
                 ></div>
-
-                {/* Center Text */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-gray-900">
@@ -263,23 +247,26 @@ export default async function DashboardPage() {
 
             {/* Legend */}
             <div className="mt-6 space-y-2">
-              <div className="flex items-center justify-between text-sm text-gray-600">
-                <div className="flex items-center space-x-2">
+              <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-purple-600" />
-                  <span>In Stock ({inStockPercentage}%)</span>
+                  <span>In Stock</span>
                 </div>
+                <span>{inStockPercentage}%</span>
               </div>
-              <div className="flex items-center justify-between text-sm text-gray-600">
-                <div className="flex items-center space-x-2">
+              <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                  <span>Low Stock ({lowStockPercentage}%)</span>
+                  <span>Low Stock</span>
                 </div>
+                <span>{lowStockPercentage}%</span>
               </div>
-              <div className="flex items-center justify-between text-sm text-gray-600">
-                <div className="flex items-center space-x-2">
+              <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-red-500" />
-                  <span>Out of Stock ({outOfStockCount}%)</span>
+                  <span>Out of Stock</span>
                 </div>
+                <span>{outOfStockCount}%</span>
               </div>
             </div>
           </div>

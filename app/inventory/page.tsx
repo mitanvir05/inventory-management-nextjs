@@ -36,13 +36,15 @@ export default async function InventoryPage({
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50">
       <Sidebar currentPath="/inventory" />
-
-      <main className="flex-1 ml-64 p-8">
+      <main className="ml-0 md:ml-64 p-4 pt-20 md:p-8 md:pt-8 transition-all">
+        {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Inventory</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+              Inventory
+            </h1>
             <p className="text-sm text-gray-500 mt-1">
               Manage your products, track stock levels, and organize your
               inventory.
@@ -72,7 +74,7 @@ export default async function InventoryPage({
           {/* Table Container */}
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full whitespace-nowrap">
                 <thead>
                   <tr className="bg-gray-50/50 border-b border-gray-200">
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
@@ -113,7 +115,6 @@ export default async function InventoryPage({
                       return (
                         <tr
                           key={product.id}
-                          // ADDED cursor-pointer here
                           className="hover:bg-gray-50/80 transition-colors group cursor-pointer"
                         >
                           <td className="px-6 py-4">
@@ -169,7 +170,6 @@ export default async function InventoryPage({
                                   name="id"
                                   value={product.id}
                                 />
-                                {/* Added e.stopPropagation to prevent row click when clicking delete */}
                                 <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                                   <Trash2 className="w-4 h-4" />
                                 </button>
@@ -185,8 +185,8 @@ export default async function InventoryPage({
             </div>
 
             {/* Pagination Controls */}
-            <div className="px-6 py-4 bg-gray-50/50 border-t border-gray-200 flex items-center justify-between">
-              <div className="text-sm text-gray-500">
+            <div className="px-6 py-4 bg-gray-50/50 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-sm text-gray-500 text-center sm:text-left">
                 Showing <span className="font-medium">{skip + 1}</span> to{" "}
                 <span className="font-medium">
                   {Math.min(skip + ITEMS_PER_PAGE, totalCount)}
