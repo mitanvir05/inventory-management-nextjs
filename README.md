@@ -64,14 +64,14 @@ The application supports authentication, dashboards, product management, and is 
 
 ## 📸 Screenshots
 
-### Home Page
-![Home Page](./public/assets/home.png)
+### 🏠 Home Page
+![Home Page](https://inventory-management-nextjs-app.vercel.app/assets/home.png)
 
-### Dashboard
-![Dashboard](./public/assets/dashboard.png)
+### 📊 Dashboard
+![Dashboard](https://inventory-management-nextjs-app.vercel.app/assets/dashboard.png)
 
-### Inventory Management
-![Inventory](./public/assets/inventory.png)
+### 📦 Inventory
+![Inventory](https://inventory-management-nextjs-app.vercel.app/assets/inventory.png)
 
-### Add New Product
-![Add Product](./public/assets/addproduct.png)
+### ➕ Add Product
+![Add Product](https://inventory-management-nextjs-app.vercel.app/assets/addproduct.png)
