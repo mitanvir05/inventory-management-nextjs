@@ -2,7 +2,7 @@ import Sidebar from "@/components/sidebar";
 import { deleteProduct } from "@/lib/actions/products";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Search, Trash2, AlertCircle, CheckCircle2 } from "lucide-react"; 
+import { Search, Trash2, AlertCircle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 const ITEMS_PER_PAGE = 10;
@@ -40,7 +40,6 @@ export default async function InventoryPage({
       <Sidebar currentPath="/inventory" />
 
       <main className="flex-1 ml-64 p-8">
-       
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Inventory</h1>
@@ -159,8 +158,6 @@ export default async function InventoryPage({
                           </td>
                           <td className="px-6 py-4 text-right">
                             <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                             
-
                               <form
                                 action={async (formData: FormData) => {
                                   "use server";
